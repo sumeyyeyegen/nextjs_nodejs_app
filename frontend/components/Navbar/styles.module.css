@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+header.header a {
+  text-decoration: none;
+
+}
+
+header.header {
+  padding: 3em 3em;
+  background-color: #1d1f1d;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.brand a {
+  font-size: 2em;
+  color: #09c372;
+}
+
+ul.menuList {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  font-size: 1.3em;
+  align-items: center;
+  justify-content: space-around;
+}
+
+ul.menuList a {
+  color: white;
+}
+
+ul.menuList li {
+  padding: 1em;
+  margin-left: 10px;
+}
+
+ul.menuList li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+
+.login,
+.signup {
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+.login {}
+
+.signup {}
+
+.signup a {}
+
+.login a {}
+
+.hamburgerIcon {
+  /* margin: auto 0; */
+  display: none;
+  cursor: pointer;
+}
+
+.hamburgerIcon div {
+  width: 35px;
+  height: 3px;
+  background-color: white;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.open .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-6px, 6px);
+  transform: rotate(-45deg) translate(-6px, 6px);
+}
+
+.open .bar2 {
+  opacity: 0;
+}
+
+.open .bar3 {
+  -webkit-transform: rotate(45deg) translate(-6px, -8px);
+  transform: rotate(45deg) translate(-6px, -8px);
+}
+
+.open .mobileMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.mobileMenu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  height: calc(100vh - 50px);
+  width: 100%;
+}
+
+.mobileMenu li {
+  margin-bottom: 10px;
+  padding: 1em 2em 0 2em;
+}
+
+@media only screen and (max-width: 991px) {
+  header.header nav {
+    display: none;
+  }
+
+  .hamburgerIcon {
+    display: block;
+  }
+}
