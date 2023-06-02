@@ -2,9 +2,23 @@ import {useEffect, useState} from 'react';
 import '../styles/globals.css'
 import {Provider} from 'react-redux';
 import store from '../redux/store';
+import { ChakraProvider } from '@chakra-ui/react'
+import Navbar from '../components/Navbar'
+import { extendTheme } from '@chakra-ui/react'
+
+
+const colors = {
+  brand: {
+    900: '#1a365d',
+    800: '#153e75',
+    700: '#2a69ac',
+  },
+}
+
+export const theme = extendTheme({ colors })
 
 function MyApp({ Component, pageProps }) {
-
+const [auth, setAuth] = useState(true)
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,10 +37,28 @@ function MyApp({ Component, pageProps }) {
       }
   }, []);
 
+
+
+
   return (
     !loading ? (
       <Provider store={store}>
-          <Component {...pageProps} />
+        <ChakraProvider theme={theme}>
+          {
+            auth ? <>
+            <Navbar/>
+            <div id='content'>
+              <div className='container'>
+                <Component {...pageProps} />
+              </div>
+            </div>
+            </>: <div id='content'>
+              <div className='container'>
+                <Component {...pageProps} />
+              </div>
+            </div>
+          }
+        </ChakraProvider>
       </Provider> 
     ):""
   )

@@ -1,11 +1,17 @@
 class storage {
 
   static set(key, cartItems) {
-      localStorage.setItem(key, JSON.stringify(cartItems))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(key, cartItems)
+    }
   }
 
   static get(key) {
-      return JSON.parse(localStorage.getItem(key))
+    if(typeof window !== 'undefined') {
+      return JSON.parse(localStorage.getItem(key)) || []
+    }else{
+      return []
+    }
   }
 }
 

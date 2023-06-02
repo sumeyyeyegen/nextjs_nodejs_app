@@ -2,45 +2,31 @@ import storage from "../../util/localStorage";
 import { deleteProduct, findProductIndexById } from "../../util/util";
 import * as Types from "../constants/actionTypes";
 
-export default function Cart(state = [], action) {
+export default function (state ={}, action) {
     let index = null;
 
     switch (action.type) {
         case Types.INIT_LOCALSTORAGE:
-            return [...action.payload.cart];
+            return [...action.payload.cartItems];
 
-        case Types.ADD_TO_CART:
-            index = findProductIndexById(state, action.payload.product.product_id);
-
-            if (index !== -1) {
-                state[index].quantity += 1;
-                storage.set("dokani_cart", [...state]);
-
-                return [...state];
-            } else {
-                if (!action.payload.product.quantity) {
-                    action.payload.product.quantity = 1;
-                }
-                storage.set("dokani_cart", [...state, action.payload.product]);
-
-                return [...state, action.payload.product];
-            }
+        case Types.ADD_TO_CART: 
+            console.log('state',state);
+            console.log('state',action);
+        return { ...state, items: {items: action.payload.cartItems, added_status:true} };
 
         case Types.DELETE_FROM_CART:
             const newCartItems = deleteProduct(state, action.payload.productId);
-            storage.set("dokani_cart", newCartItems);
+            storage.set("cartItems", newCartItems);
 
             return [...newCartItems];
 
         case Types.INCREASE_QUANTITY:
-            console.log(state);
-            console.log(action.payload.productId);
             index = findProductIndexById(state, action.payload.productId);
             console.log(index);
             if (index === -1) return state;
 
-            state[index].quantity += 1;
-            storage.set("dokani_cart", [...state]);
+            state[index].count += 1;
+            storage.set("cartItems", [...state]);
 
             return [...state];
 
@@ -51,9 +37,9 @@ export default function Cart(state = [], action) {
             console.log(index);
             if (index === -1) return state;
 
-            const quantity = state[index].quantity;
-            if (quantity > 1) state[index].quantity -= 1;
-            storage.set("dokani_cart", [...state]);
+            const quantity = state[index].count;
+            if (quantity > 1) state[index].count -= 1;
+            storage.set("cartItems", [...state]);
 
             return [...state];
 

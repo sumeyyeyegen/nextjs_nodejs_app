@@ -1,10 +1,26 @@
 import * as Types from '../constants/actionTypes'
 import storage from '../../util/localStorage';
 
-export const addToCart = product => dispatch => {
+export const addToCart = (product) => dispatch => {
+    var items = [];
+    items = storage.get('cartItems');
+
+    let productAlreadyInCart = false;
+
+    for (let i = 0; i < items?.length; i++) {
+        if(items[i].id === product.id){
+            items[i].count += 1;
+            productAlreadyInCart=true;
+        }
+    }
+
+    if (!productAlreadyInCart) {
+        items?.push({...product, count: 1 });
+    }
+    storage.set("cartItems", JSON.stringify(items));
     dispatch({
         type: Types.ADD_TO_CART,
-        payload: { product }
+        payload: { cartItems: items }
     })
 }
 
